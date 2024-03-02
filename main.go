@@ -1,17 +1,26 @@
 package main
 
 import (
-	"fmt"
-
+	"os"
+	"log"
 	"github.com/AniruddhGuttikar/BitTorrent-client-go/torrentfile"
 )
 
 func main() {
-	str, err := torrentfile.ReadFile("./archlinux-2019.12.01-x86_64.iso.torrent")
+	inPath := os.Args[1]
+	// outPath := os.Args[1]
+	
+	inFile, err := os.Open(inPath)
+
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 		return
 	}
-	fmt.Println(str)
+
+	err = torrentfile.ReadFile(inFile)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	
 }
