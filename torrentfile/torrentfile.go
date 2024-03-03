@@ -2,6 +2,7 @@ package torrentfile
 
 import (
 	"bytes"
+	"crypto/rand"
 	"crypto/sha1"
 	"fmt"
 	"io"
@@ -30,20 +31,34 @@ type bencodeTorrent struct {
 	Info     bencodeInfo `bencode:"info"`
 }
 
-func ReadFile(f io.Reader) error {
-
+func ReadFile(f io.Reader) (TorrentFile, error) {
 	bto := bencodeTorrent{}
 	err := bencode.Unmarshal(f, &bto)
 	if err != nil {
-		return err
+		return TorrentFile{}, err
 	}
 	Torrent, err := bto.toTorrent()
 	if err != nil {
+		return TorrentFile{}, err
+	}
+	// dst := make([]byte, hex.EncodedLen(len(Torrent.InfoHash)))
+	// hex.Encode(dst, Torrent.InfoHash[:])
+	fmt.Printf("%+v\n", Torrent)
+	return Torrent, nil
+}
+
+// function which will download the file into desired location
+func (t *TorrentFile) DownloadFile(f io.Reader) error {
+	//create a random peerID
+	peerID := make([]byte, 20)
+	if _, err := rand.Read(peerID); err != nil {
 		return err
 	}
-	fmt.Printf("%+v\n", Torrent)
-	fmt.Println(bto.Info.Name)
-	return nil
+	url, err := t.buildTrackerURL([20]byte(peerID))
+	if err != nil {
+		return err
+	}
+
 }
 
 // find the hash of the info key of a parsed bencode
