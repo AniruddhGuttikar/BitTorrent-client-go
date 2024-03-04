@@ -1,8 +1,10 @@
 package main
 
 import (
-	"os"
+	"fmt"
 	"log"
+	"os"
+
 	"github.com/AniruddhGuttikar/BitTorrent-client-go/torrentfile"
 )
 
@@ -25,6 +27,5 @@ func main() {
 	if err != nil {
 		log.Fatalf("error in the main program: %v", err)
 	}
-
-	
+	fmt.Println("file has been downloaded successfully huhu :3")
 }

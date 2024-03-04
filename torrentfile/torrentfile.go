@@ -54,10 +54,10 @@ func (t *TorrentFile) DownloadFile(f string) error {
 	if _, err := rand.Read(peerID); err != nil {
 		return err
 	}
-	url, err := t.buildTrackerURL([20]byte(peerID))
-	if err != nil {
-		return err
-	}
+	// url, err := t.buildTrackerURL([20]byte(peerID))
+	// if err != nil {
+	// 	return err
+	// }
 
 }
 
