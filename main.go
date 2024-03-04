@@ -8,19 +8,23 @@ import (
 
 func main() {
 	inPath := os.Args[1]
-	// outPath := os.Args[1]
+	outPath := os.Args[1]
 	
 	inFile, err := os.Open(inPath)
-
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
 
-	err = torrentfile.ReadFile(inFile)
+	tf, err := torrentfile.ReadFile(inFile)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("error in reading the file: %v", err)
 		return
 	}
+	err = tf.DownloadFile(outPath)
+	if err != nil {
+		log.Fatalf("error in the main program: %v", err)
+	}
+
 	
 }

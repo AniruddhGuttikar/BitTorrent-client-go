@@ -48,7 +48,7 @@ func ReadFile(f io.Reader) (TorrentFile, error) {
 }
 
 // function which will download the file into desired location
-func (t *TorrentFile) DownloadFile(f io.Reader) error {
+func (t *TorrentFile) DownloadFile(f string) error {
 	//create a random peerID
 	peerID := make([]byte, 20)
 	if _, err := rand.Read(peerID); err != nil {
