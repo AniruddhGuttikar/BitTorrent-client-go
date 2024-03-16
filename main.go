@@ -11,7 +11,7 @@ import (
 func main() {
 	inPath := os.Args[1]
 	outPath := os.Args[1]
-	
+
 	inFile, err := os.Open(inPath)
 	if err != nil {
 		log.Fatal(err)
@@ -25,7 +25,7 @@ func main() {
 	}
 	err = tf.DownloadFile(outPath)
 	if err != nil {
-		log.Fatalf("error in the main program: %v", err)
+		log.Fatalf("error in the main program: %+v", err)
 	}
 	fmt.Println("file has been downloaded successfully huhu :3")
 }

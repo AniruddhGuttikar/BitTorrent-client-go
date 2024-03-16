@@ -43,7 +43,7 @@ func ReadFile(f io.Reader) (TorrentFile, error) {
 	}
 	// dst := make([]byte, hex.EncodedLen(len(Torrent.InfoHash)))
 	// hex.Encode(dst, Torrent.InfoHash[:])
-	fmt.Printf("%+v\n", Torrent)
+	//fmt.Printf("%+v\n", Torrent)
 	return Torrent, nil
 }
 
@@ -54,11 +54,14 @@ func (t *TorrentFile) DownloadFile(f string) error {
 	if _, err := rand.Read(peerID); err != nil {
 		return err
 	}
-	// url, err := t.buildTrackerURL([20]byte(peerID))
-	// if err != nil {
-	// 	return err
-	// }
-
+	peers, err := t.requestPeers([20]byte(peerID))
+	if err != nil {
+		return err
+	}
+	for _, peer := range peers {
+		fmt.Println("peer data: ", peer)
+	}
+	return nil
 }
 
 // find the hash of the info key of a parsed bencode
