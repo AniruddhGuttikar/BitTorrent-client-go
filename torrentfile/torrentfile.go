@@ -59,7 +59,7 @@ func (t *TorrentFile) DownloadFile(f string) error {
 		return err
 	}
 	for _, peer := range peers {
-		fmt.Println("peer data: ", peer)
+		fmt.Println("peer data: ", peer.String())
 	}
 	return nil
 }
