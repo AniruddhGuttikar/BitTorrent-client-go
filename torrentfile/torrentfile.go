@@ -54,6 +54,8 @@ func (t *TorrentFile) DownloadFile(f string) error {
 	if _, err := rand.Read(peerID); err != nil {
 		return err
 	}
+	copy(peerID[:2], "BZ")
+	fmt.Println("Your PeerID is: ", peerID)
 	peers, err := t.requestPeers([20]byte(peerID))
 	if err != nil {
 		return err

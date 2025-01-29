@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	fmt.Println("Enter the input path of the torrentfile and name/location for the downloaded file")
 	inPath := os.Args[1]
 	outPath := os.Args[1]
 

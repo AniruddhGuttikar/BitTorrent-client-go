@@ -16,3 +16,4 @@ func (bf *BitField) SetPiece(index int) {
 	
 	(*bf)[byteIndex] |= 1 << (7-offset)
 }
+	
