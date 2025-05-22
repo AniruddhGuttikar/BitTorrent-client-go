@@ -36,8 +36,8 @@ func (t *TorrentFile) buildTrackerURL(peerID [20]byte) (string, error) {
 	params.Set("compact", "1")
 	params.Set("left", strconv.Itoa(t.Length))
 
-	fmt.Printf("torrent file built: %+v\n", t)
-	fmt.Printf("torrent file succsfully %s\n", params.Encode())
+	// fmt.Printf("torrent file built: %+v\n", t)
+	// fmt.Printf("torrent file succsfully %s\n", baseLink.String())
 
 	baseLink.RawQuery = params.Encode()
 	return baseLink.String(), nil
@@ -69,7 +69,7 @@ func (t *TorrentFile) requestPeers(peerID [20]byte) ([]peers.Peer, error) {
 		parsedURL, _ := url.Parse(trackerUrl)
 
 		// resolve the UDP server address
-		udpAddr, err := net.ResolveUDPAddr("udp", parsedURL.Hostname()+ ":" +parsedURL.Port())
+		udpAddr, err := net.ResolveUDPAddr("udp", parsedURL.Hostname()+":"+parsedURL.Port())
 		if err != nil {
 			return nil, err
 		}
@@ -104,7 +104,7 @@ func (t *TorrentFile) requestPeers(peerID [20]byte) ([]peers.Peer, error) {
 		// fmt.Println("Response from server:", string(response))
 
 	}
-
+	fmt.Printf("response interval: %ds ", response.Interval)
 	p, err := peers.UnmarshalPeers([]byte(response.Peers))
 	if err != nil {
 		return nil, err
